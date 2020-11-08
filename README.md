@@ -16,3 +16,11 @@ npm start
 cd client
 npm start
 ```
+
+# Setup
+### requirements
+* npm 14+  
+* expo cli  ``` npm i -g expo-cli```
+### VS code extensions
+* React Native Tools
+* React-Native/React/Redux snippets
