@@ -5,12 +5,20 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
 import SportScreen from "./app/screens/SportScreen";
 import SpaScreen from "./app/screens/SpaScreen";
 import ShopScreen from "./app/screens/ShopScreen";
 import PlanScreen from "./app/screens/PlanScreen";
 import AccountScreen from "./app/screens/AccountScreen";
+import LoginForm from "./app/accountSubsystem/Login/LoginForm";
+import Profile from "./app/accountSubsystem/Profile/Profile";
+import Writecomplaint from "./app/accountSubsystem/Complaints/Writecomplaint";
+import EditProfile from "./app/accountSubsystem/Profile/EditProfile";
+import InjuriesList from "./app/accountSubsystem/Injuries/InjuriesList";
+import InjuriesRegistration from "./app/accountSubsystem/Injuries/InjuriesRegistration";
+import RegistrationForm from "./app/accountSubsystem/RegistrationForm";
+import Holidays from "./app/accountSubsystem/Holidays";
+import DeleteProfile from "./app/accountSubsystem/Profile/DeleteProfile";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -165,7 +173,52 @@ function AccountStack() {
       <Stack.Screen
         name="Account"
         component={AccountScreen}
+        options={{ title: "Prisijungimas/Registracija" }}
+      />
+      <Stack.Screen
+        name="LoginForm"
+        component={LoginForm}
+        options={{ title: "Prisijungimas" }}
+      />
+      <Stack.Screen
+        name="Profile"
+        component={Profile}
         options={{ title: "Profilis" }}
+      />
+      <Stack.Screen
+        name="Writecomplaint"
+        component={Writecomplaint}
+        options={{ title: "Naujas skundas" }}
+      />
+      <Stack.Screen
+        name="EditProfile"
+        component={EditProfile}
+        options={{ title: "Profilio redagavimas" }}
+      />
+      <Stack.Screen
+        name="InjuriesList"
+        component={InjuriesList}
+        options={{ title: "Traumų sąrašas" }}
+      />
+      <Stack.Screen
+        name="InjuriesRegistration"
+        component={InjuriesRegistration}
+        options={{ title: "Registruoti naują traumą" }}
+      />
+      <Stack.Screen
+        name="RegistrationForm"
+        component={RegistrationForm}
+        options={{ title: "Registracija" }}
+      />
+      <Stack.Screen
+        name="Holidays"
+        component={Holidays}
+        options={{ title: "Pasiimti atostogas" }}
+      />
+      <Stack.Screen
+        name="DeleteProfile"
+        component={DeleteProfile}
+        options={{ title: "Trinti profilį" }}
       />
     </Stack.Navigator>
   );
