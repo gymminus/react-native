@@ -6,7 +6,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import SportScreen from "./app/screens/SportScreen";
+import SportScreen from "./app/screens/sport/SportScreen";
 import SpaScreen from "./app/screens/SpaScreen";
 import ShopScreen from "./app/screens/ShopScreen";
 import PlanScreen from "./app/screens/PlanScreen";
@@ -81,6 +81,13 @@ const App = () => {
   );
 };
 
+import ReservationScreen from "./app/screens/sport/ReservationScreen";
+import ClubsScreen from "./app/screens/sport/ClubsScreen";
+import MapScreen from "./app/screens/sport/MapScreen";
+import ActivitiesScreen from "./app/screens/sport/ActivitiesScreen";
+import NewActivityScreen from "./app/screens/sport/NewActivityScreen";
+import NewClubScreen from "./app/screens/sport/NewClubScreen";
+
 function SportsStack() {
   return (
     <Stack.Navigator
@@ -94,6 +101,36 @@ function SportsStack() {
         name="sports"
         component={SportScreen}
         options={{ title: "Sporto salės" }}
+      />
+      <Stack.Screen
+        name="Reservations"
+        options={{ title: "Rezervacijos" }}
+        component={ReservationScreen}
+      />
+      <Stack.Screen
+        name="Clubs"
+        options={{ title: "Sporto salės" }}
+        component={ClubsScreen}
+      />
+      <Stack.Screen
+        name="NewClub"
+        options={{ title: "Nauja salė" }}
+        component={NewClubScreen}
+      />
+      <Stack.Screen
+        name="Activities"
+        options={{ title: "Užsiemimai" }}
+        component={ActivitiesScreen}
+      />
+      <Stack.Screen
+        name="NewActivity"
+        options={{ title: "Naujas užsiemimas" }}
+        component={NewActivityScreen}
+      />
+      <Stack.Screen
+        name="Map"
+        options={{ title: "Žemėlapis" }}
+        component={MapScreen}
       />
     </Stack.Navigator>
   );
