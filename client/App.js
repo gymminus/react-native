@@ -8,7 +8,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import SportScreen from "./app/screens/SportScreen";
 import SpaScreen from "./app/screens/SpaScreen";
-import ShopScreen from "./app/screens/ShopScreen";
+import ShopScreen from "./app/screens/shop/ShopScreen";
 import PlanScreen from "./app/screens/PlanScreen";
 import AccountScreen from "./app/screens/AccountScreen";
 
