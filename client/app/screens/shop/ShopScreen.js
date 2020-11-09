@@ -13,7 +13,7 @@ import items from "./Items";
 import Item from "./Item";
 import CategoryModal from "./CategoryModal";
 
-function ShopScreen() {
+const ShopScreen = ({ navigation }) => {
   const [value, onChangeText] = useState("Įveskite paieškos frazę");
   const [category, selectCategory] = useState("Pasirinkite kategoriją");
   const [categoryModalVisible, setCategoryModalVisible] = useState(false);
@@ -61,19 +61,22 @@ function ShopScreen() {
             textAlign: "center",
             padding: 20,
           }}
+          color={"black"}
           title="Pasirinkti kategoriją"
           onPress={() => setCategoryModalVisible(!categoryModalVisible)}
         ></Button>
-        <Icon
+        <Icon.Button
           style={{
             flex: 0.6,
             padding: 3,
             alignSelf: "center",
-            textAlign: "center",
+            alignItems: "center",
           }}
           name="shopping-cart"
           size={iconSize * 0.6}
-          color="#000"
+          color="black"
+          backgroundColor="0,0,0"
+          onPress={() => navigation.navigate("Cart")}
         />
       </View>
       <FlatList
@@ -83,6 +86,6 @@ function ShopScreen() {
       ></FlatList>
     </ScrollView>
   );
-}
+};
 
 export default ShopScreen;
