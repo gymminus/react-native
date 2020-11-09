@@ -28,8 +28,8 @@ function RegistrationForm({ navigation }) {
       <Button
         style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
         placeholder="Slaptažodis"
-        title="Prisijungti"
-        onPress={() => navigation.navigate("Profile")}
+        title="Registruotis"
+        onPress={() => navigation.navigate("Account")}
       />
     </View>
   );
