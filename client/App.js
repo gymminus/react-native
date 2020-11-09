@@ -8,9 +8,9 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import SportScreen from "./app/screens/sport/SportScreen";
 import SpaScreen from "./app/screens/SpaScreen";
-import ShopScreen from "./app/screens/ShopScreen";
 import PlanScreen from "./app/screens/PlanScreen";
 import AccountScreen from "./app/screens/AccountScreen";
+import ShopStack from "./app/screens/shop/ShopStack";
 import LoginForm from "./app/accountSubsystem/Login/LoginForm";
 import Profile from "./app/accountSubsystem/Profile/Profile";
 import Writecomplaint from "./app/accountSubsystem/Complaints/Writecomplaint";
@@ -24,7 +24,6 @@ import SingleWorkoutScreen from "./app/screens/workout-screens/SingleWorkoutScre
 import SingleWorkoutDeleteScreen from "./app/screens/workout-screens/SingleWorkoutDeleteScreen"
 import SingleWorkoutEditScreen from "./app/screens/workout-screens/SingleWorkoutEditScreen"
 import SingleWorkoutCreateScreen from "./app/screens/workout-screens/SingleWorkoutCreateScreen"
-
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -62,7 +61,7 @@ const App = () => {
         />
         <Tab.Screen
           name="ShopStack"
-          component={ShopStack}
+          component={() => <ShopStack Stack={Stack} />}
           options={{
             tabBarLabel: "Shop",
             tabBarIcon: () => (
@@ -163,24 +162,6 @@ function SpaStack() {
         name="Spa"
         component={SpaScreen}
         options={{ title: "SPA" }}
-      />
-    </Stack.Navigator>
-  );
-}
-
-function ShopStack() {
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        headerStyle: { backgroundColor: "#000" },
-        headerTintColor: "#fff",
-        headerTitleStyle: { fontWeight: "bold" },
-      }}
-    >
-      <Stack.Screen
-        name="Shop"
-        component={ShopScreen}
-        options={{ title: "Elektroninė parduotuvė" }}
       />
     </Stack.Navigator>
   );
