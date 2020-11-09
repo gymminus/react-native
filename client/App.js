@@ -12,6 +12,10 @@ import ShopScreen from "./app/screens/ShopScreen";
 import PlanScreen from "./app/screens/PlanScreen";
 import AccountScreen from "./app/screens/AccountScreen";
 
+import SpaRating from "./app/screens/SPA/SpaRating";
+import SpaReservation from "./app/screens/SPA/SpaReservation";
+import SpaReservationCancellation from "./app/screens/SPA/SpaReservationCancellation";
+
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -112,6 +116,18 @@ function SpaStack() {
         name="Spa"
         component={SpaScreen}
         options={{ title: "SPA" }}
+      />
+      <Stack.Screen
+        name="SpaRating"
+        component={SpaRating}
+      />
+      <Stack.Screen
+        name="SpaReservation"
+        component={SpaReservation}
+      />
+       <Stack.Screen
+        name="SpaReservationCancellation"
+        component={SpaReservationCancellation}
       />
     </Stack.Navigator>
   );
