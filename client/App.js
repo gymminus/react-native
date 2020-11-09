@@ -19,6 +19,11 @@ import InjuriesRegistration from "./app/accountSubsystem/Injuries/InjuriesRegist
 import RegistrationForm from "./app/accountSubsystem/RegistrationForm";
 import Holidays from "./app/accountSubsystem/Holidays";
 import DeleteProfile from "./app/accountSubsystem/Profile/DeleteProfile";
+import SingleWorkoutScreen from "./app/screens/workout-screens/SingleWorkoutScreen"
+import SingleWorkoutDeleteScreen from "./app/screens/workout-screens/SingleWorkoutDeleteScreen"
+import SingleWorkoutEditScreen from "./app/screens/workout-screens/SingleWorkoutEditScreen"
+import SingleWorkoutCreateScreen from "./app/screens/workout-screens/SingleWorkoutCreateScreen"
+
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -157,6 +162,11 @@ function PlanStack() {
         component={PlanScreen}
         options={{ title: "Sporto programos" }}
       />
+      <Stack.Screen name="SingleWorkoutScreen" component={SingleWorkoutScreen}></Stack.Screen>
+      <Stack.Screen name="SingleWorkoutDeleteScreen" component={SingleWorkoutDeleteScreen}></Stack.Screen>
+      <Stack.Screen name="SingleWorkoutEditScreen" component={SingleWorkoutEditScreen}></Stack.Screen>
+      <Stack.Screen name="SingleWorkoutCreateScreen" component={SingleWorkoutCreateScreen}></Stack.Screen>
+
     </Stack.Navigator>
   );
 }
