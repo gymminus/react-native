@@ -26,9 +26,6 @@ const CategoryModal = ({ categoryModalVisible, onCategorySelect }) => {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <TouchableHighlight onPress={onCategorySelect}>
-              <Text>"xd</Text>
-            </TouchableHighlight>
             <FlatList
               data={categories}
               renderItem={renderCategory}
