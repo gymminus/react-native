@@ -95,4 +95,15 @@ module.exports = (app, connection) => {
       }
     );
   });
+
+  route.post("/deleteUser", (req, res) => {
+    connection.query(
+      `DELETE FROM naudotojai WHERE id_Naudotojas=${req.body.userId}`,
+      (err, result) => {
+        if (err) throw err;
+
+        res.json(result);
+      }
+    );
+  });
 };
