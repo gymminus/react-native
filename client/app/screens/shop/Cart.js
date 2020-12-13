@@ -42,7 +42,7 @@ const Cart = () => {
       <View flexDirection="row" alignItems="stretch">
         <Button
           style={{ padding: 20 }}
-          onPress={() => dispatch(makeOrder(items))}
+          onPress={() => dispatch(makeOrder(items, price))}
           title="Užsakyti"
           color="black"
         ></Button>

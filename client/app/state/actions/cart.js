@@ -17,11 +17,11 @@ export const addItem = (item) => {
   };
 };
 
-export const makeOrder = (order) => {
+export const makeOrder = (order, price) => {
   return (dispatch) => {
     dispatch(makeOrderRequest);
     axios
-      .post("http://localhost:5000/api/shop/order", {
+      .post(`http://localhost:5000/api/shop/order?price=${price}`, {
         order: order,
       })
       .then(() => {

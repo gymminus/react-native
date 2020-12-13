@@ -1,5 +1,14 @@
 const { Router, Request, Response } = require("express");
+const nodemailer = require("nodemailer");
 const route = Router();
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "gymminus123@gmail.com",
+    pass: "GymMinus000",
+  },
+});
 
 module.exports = (app, connection) => {
   app.use("/shop", route);
@@ -57,7 +66,20 @@ module.exports = (app, connection) => {
             console.log(err);
             throw err;
           }
-          res.json("super");
+          const mailOptions = {
+            from: "gymminus123@gmail.com",
+            to: "edgarasnavicaks@gmail.com",
+            subject: "Jūsų užsakymas Gym- elektroninėje parduotuvėje",
+            html: `<h1 style="text-align:center;">Gym- komanda džiaugiasi, kad užsisakėte prekių mūsų internetinėje parduotuvėje!</h1><p style="text-align:center;">Jūs būtumėte sumokėję tokią sumą, jei mes turėtume atsiskaitymo sistemą: ${req.query.price} €</p>`,
+          };
+          transporter.sendMail(mailOptions, (err, info) => {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log("Email sent: " + info.response);
+            }
+          });
+          res.json("Super");
         });
       }
     );
