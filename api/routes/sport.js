@@ -7,7 +7,7 @@ module.exports = (app, connection) => {
   route.get("/reservations", (req, res) => {
     connection.query("SELECT * FROM rezervacija", (err, result) => {
       if (err) throw err;
-      console.log("Result: " + result);
+      //console.log("Result: " + result);
       res.json(result);
     });
   });

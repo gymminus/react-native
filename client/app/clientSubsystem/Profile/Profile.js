@@ -23,7 +23,7 @@ function Profile({ navigation }) {
       />
       <Button
         style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
-        title="Pasiimti atostogas"
+        title="Atostogos"
         onPress={() => navigation.navigate("Holidays")}
       />
       <Button
