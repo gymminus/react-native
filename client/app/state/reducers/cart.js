@@ -25,7 +25,6 @@ export default function cartReducer(state = initialState, action = {}) {
       };
     case actions.REMOVE_FROM_CART_REQUEST:
       const id = action.payload;
-      console.log(id);
       let shouldRemove = state.items.find(
         (item) => item.id_E_Preke === id && item.count === 1
       );
