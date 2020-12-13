@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   TextInput,
   FlatList,
@@ -9,9 +9,9 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { useDimensions } from "@react-native-community/hooks";
-import items from "./Items";
 import Item from "./Item";
 import CategoryModal from "./CategoryModal";
+import axios from "axios";
 
 const ShopScreen = ({ navigation }) => {
   const [value, onChangeText] = useState("Įveskite paieškos frazę");
@@ -19,13 +19,27 @@ const ShopScreen = ({ navigation }) => {
   const [categoryModalVisible, setCategoryModalVisible] = useState(false);
   const { width } = useDimensions().window;
   const iconSize = width / 5 - 8;
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:5000/api/shop/items").then((res) => {
+      setItems(res.data);
+    });
+  }, []);
 
   const renderItem = ({ item }) => {
-    return <Item title={item.title} description={item.description} />;
+    return (
+      <Item
+        title={item.pavadinimas}
+        description={item.aprasymas}
+        img={item.nuotrauka}
+      />
+    );
   };
 
-  return (
+  return items.length !== 0 ? (
     <ScrollView>
+      {console.log(items)}
       <CategoryModal
         categoryModalVisible={categoryModalVisible}
         onCategorySelect={() => {
@@ -85,7 +99,7 @@ const ShopScreen = ({ navigation }) => {
         keyExtractor={(item) => item.id}
       ></FlatList>
     </ScrollView>
-  );
+  ) : null;
 };
 
 export default ShopScreen;

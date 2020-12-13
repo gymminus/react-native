@@ -3,7 +3,7 @@ import { View, Image, Text } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { useDimensions } from "@react-native-community/hooks";
 
-const Item = ({ title, description }) => {
+const Item = ({ title, description, img }) => {
   const { width } = useDimensions().window;
   const iconSize = width / 5 - 8;
   return (
@@ -18,7 +18,7 @@ const Item = ({ title, description }) => {
       }}
     >
       <Image
-        source={{ uri: "https://picsum.photos/120/90" }}
+        source={{ uri: img }}
         style={{ width: 120, height: 90, flex: 3 }}
       ></Image>
       <View style={{ flex: 5, padding: 3 }}>
