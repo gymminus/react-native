@@ -1,24 +1,24 @@
-import React, { useState } from "react";
-import {
-  Alert,
-  Modal,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  View,
-  FlatList,
-} from "react-native";
-import categories from "./Categories";
+import React from "react";
+import { Modal, StyleSheet, View, FlatList } from "react-native";
 import Category from "./Category";
 
-const CategoryModal = ({ categoryModalVisible, onCategorySelect }) => {
+const CategoryModal = ({
+  categoryModalVisible,
+  onCategorySelect,
+  categories,
+}) => {
   const renderCategory = ({ item }) => {
-    return <Category title={item.title} onCategorySelect={onCategorySelect} />;
+    return (
+      <Category
+        title={item.pavadinimas}
+        id={item.id_E_Kategorija}
+        onCategorySelect={onCategorySelect}
+      />
+    );
   };
 
   return (
     <View style={styles.centeredView}>
-      {console.log(categoryModalVisible)}
       <Modal
         animationType="slide"
         transparent={true}
@@ -29,7 +29,7 @@ const CategoryModal = ({ categoryModalVisible, onCategorySelect }) => {
             <FlatList
               data={categories}
               renderItem={renderCategory}
-              keyExtractor={(category) => category.id}
+              keyExtractor={(category) => category.id_E_Kategorija}
             ></FlatList>
           </View>
         </View>
