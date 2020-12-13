@@ -9,7 +9,7 @@ var db_config = {
 };
 var con;
 const connect = () => {
-  con = mysql.createConnection(db_config);
+  var con = mysql.createConnection(db_config);
 
   con.connect((err) => {
     if (err) {
