@@ -1,3 +1,4 @@
+import axios from "axios";
 import * as actions from "../actionTypes";
 
 const addItemSuccess = (item) => ({
@@ -15,3 +16,32 @@ export const addItem = (item) => {
     dispatch(addItemSuccess(item));
   };
 };
+
+export const makeOrder = (order) => {
+  return (dispatch) => {
+    dispatch(makeOrderRequest);
+    axios
+      .post("http://localhost:5000/api/shop/order", {
+        order: order,
+      })
+      .then(() => {
+        dispatch(makeOrderSuccess());
+      })
+      .catch((e) => {
+        dispatch(makeOrderFailure);
+      });
+  };
+};
+
+const makeOrderRequest = () => ({
+  type: actions.MAKE_ORDER_REQUEST,
+});
+
+const makeOrderSuccess = () => ({
+  type: actions.MAKE_ORDER_SUCCESS,
+});
+
+const makeOrderFailure = (error) => ({
+  type: actions.MAKE_ORDER_FAIL,
+  payload: error,
+});

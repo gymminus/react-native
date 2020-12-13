@@ -17,7 +17,6 @@ module.exports = (app, connection) => {
       }
     }
     connection.query(sql, (err, result) => {
-      console.log(req.query);
       if (err) {
         console.log(err);
         throw err;
@@ -34,5 +33,33 @@ module.exports = (app, connection) => {
       }
       res.json(result);
     });
+  });
+
+  route.post("/order", (req, res) => {
+    connection.query(
+      "INSERT INTO e_uzsakymai(data, fk_Vartotojas) VALUES(NOW(), 3)",
+      (err, result) => {
+        if (err) {
+          console.log(err);
+          throw err;
+        }
+        let sql =
+          "INSERT INTO uzsakomu_prekiu_kiekiai(kiekis, fk_E_Preke, fk_E_Uzsakymas) VALUES";
+        for (let i = 0; i < req.body.order.length; i++) {
+          let isLast = req.body.order.length - 1 === i;
+          sql = sql.concat(
+            `(${req.body.order[i].count}, ${req.body.order[i].id_E_Preke}, ${result.insertId})`
+          );
+          sql = sql.concat(isLast ? ";" : ",");
+        }
+        connection.query(sql, (err, result) => {
+          if (err) {
+            console.log(err);
+            throw err;
+          }
+          res.json("super");
+        });
+      }
+    );
   });
 };

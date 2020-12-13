@@ -40,6 +40,9 @@ export default function cartReducer(state = initialState, action = {}) {
               }
             }),
       };
+    case actions.MAKE_ORDER_SUCCESS:
+      console.log("g");
+      return { ...state, items: [] };
     default:
       return state;
   }
