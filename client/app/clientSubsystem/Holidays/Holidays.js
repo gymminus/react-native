@@ -20,6 +20,7 @@ function Holidays({ navigation }) {
       console.log(res)
       console.log(res.data)
     })
+    navigation.navigate("Holidays");
   }
   return (
     <SafeAreaView>
