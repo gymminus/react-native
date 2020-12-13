@@ -28,18 +28,11 @@ const ShopScreen = ({ navigation }) => {
   }, []);
 
   const renderItem = ({ item }) => {
-    return (
-      <Item
-        title={item.pavadinimas}
-        description={item.aprasymas}
-        img={item.nuotrauka}
-      />
-    );
+    return <Item item={item} />;
   };
 
   return items.length !== 0 ? (
     <ScrollView>
-      {console.log(items)}
       <CategoryModal
         categoryModalVisible={categoryModalVisible}
         onCategorySelect={() => {
@@ -96,7 +89,7 @@ const ShopScreen = ({ navigation }) => {
       <FlatList
         data={items}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id_E_Preke}
       ></FlatList>
     </ScrollView>
   ) : null;

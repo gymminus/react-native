@@ -1,11 +1,14 @@
 import React from "react";
-import { View, Image, Text } from "react-native";
+import { View, Image, Text, Button } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { useDimensions } from "@react-native-community/hooks";
+import { useDispatch } from "react-redux";
+import { addItem, removeItem } from "../../state/actions/cart";
 
-const Item = ({ title, description, img }) => {
+const Item = ({ item }) => {
   const { width } = useDimensions().window;
   const iconSize = width / 5 - 8;
+  const dispatch = useDispatch();
   return (
     <View
       style={{
@@ -18,25 +21,29 @@ const Item = ({ title, description, img }) => {
       }}
     >
       <Image
-        source={{ uri: img }}
+        source={{ uri: item.nuotrauka }}
         style={{ width: 120, height: 90, flex: 3 }}
       ></Image>
       <View style={{ flex: 5, padding: 3 }}>
-        <Text style={{ fontWeight: "bold" }}>{title}</Text>
-        <Text style={{ flexShrink: 1 }}>{description}</Text>
+        <Text style={{ fontWeight: "bold" }}>{item.pavadinimas}</Text>
+        <Text style={{ flexShrink: 1 }}>{item.aprasymas}</Text>
       </View>
       <View>
-        <Icon
-          style={{ flex: 1, padding: 3 }}
+        <Icon.Button
           name="plus"
           size={iconSize * 0.3}
           color="#000"
+          backgroundColor="rgb(255, 255, 255)"
+          borderRadius={0}
+          onPress={() => dispatch(addItem(item))}
         />
-        <Icon
-          style={{ flex: 1, padding: 3 }}
+        <Icon.Button
           name="minus"
           size={iconSize * 0.3}
           color="#000"
+          backgroundColor="rgb(255, 255, 255)"
+          borderRadius={0}
+          onPress={() => dispatch(removeItem(item.id_E_Preke))}
         />
       </View>
     </View>

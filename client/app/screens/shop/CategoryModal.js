@@ -1,13 +1,5 @@
-import React, { useState } from "react";
-import {
-  Alert,
-  Modal,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  View,
-  FlatList,
-} from "react-native";
+import React from "react";
+import { Modal, StyleSheet, View, FlatList } from "react-native";
 import categories from "./Categories";
 import Category from "./Category";
 
@@ -18,7 +10,6 @@ const CategoryModal = ({ categoryModalVisible, onCategorySelect }) => {
 
   return (
     <View style={styles.centeredView}>
-      {console.log(categoryModalVisible)}
       <Modal
         animationType="slide"
         transparent={true}
