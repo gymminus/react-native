@@ -7,9 +7,7 @@ var db_config = {
   password: process.env.MYSQL_PASS,
   database: process.env.MYSQL_DB,
 };
-
 var con;
-
 const connect = () => {
   con = mysql.createConnection(db_config);
 
@@ -28,7 +26,5 @@ const connect = () => {
     }
   });
 };
-
 connect();
-
-module.exports = con;
+module.exports = connect;

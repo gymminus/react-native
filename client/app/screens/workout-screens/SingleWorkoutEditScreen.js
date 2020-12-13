@@ -1,11 +1,12 @@
 import { ScrollView, Text, View, Button } from "react-native";
 import React from "react";
 
-function SingleWorkoutEditScreen() {
+function SingleWorkoutEditScreen({ route }) {
   return (
     <View>
-        <Button title="YES"></Button>
-        <Button title="NO"></Button>
+      <Text>{route.params.workoutObj.id_Sporto_Programa}</Text>
+      <Button title="YES"></Button>
+      <Button title="NO"></Button>
     </View>
   );
 }
