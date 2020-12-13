@@ -7,9 +7,7 @@ var db_config = {
   password: process.env.MYSQL_PASS,
   database: process.env.MYSQL_DB,
 };
-
 var con;
-
 const connect = () => {
   con = mysql.createConnection(db_config);
 
@@ -20,15 +18,17 @@ const connect = () => {
     }
   });
 
-  con.on(`error`, (err) => {
+  con.on(error, (err) => {
     if (err.code === "PROTOCOL_CONNECTION_LOST") {
-      connect();
+      console.log(err);
     } else {
       throw err;
     }
   });
 };
-
 connect();
 
+setInterval(function () {
+  con.query("SELECT 1");
+}, 5000);
 module.exports = con;
