@@ -8,10 +8,8 @@ var db_config = {
   database: process.env.MYSQL_DB,
 };
 
-var con;
-
 const connect = () => {
-  con = mysql.createConnection(db_config);
+  var con = mysql.createConnection(db_config);
 
   con.connect((err) => {
     if (err) {
@@ -27,8 +25,8 @@ const connect = () => {
       throw err;
     }
   });
+
+  return con;
 };
 
-connect();
-
-module.exports = con;
+module.exports = connect;
