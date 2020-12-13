@@ -11,7 +11,8 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import { useDimensions } from "@react-native-community/hooks";
 import Item from "./Item";
 import CategoryModal from "./CategoryModal";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { loadItems } from "../../state/actions/item";
 
 const ShopScreen = ({ navigation }) => {
   const [value, onChangeText] = useState("Įveskite paieškos frazę");
@@ -19,12 +20,11 @@ const ShopScreen = ({ navigation }) => {
   const [categoryModalVisible, setCategoryModalVisible] = useState(false);
   const { width } = useDimensions().window;
   const iconSize = width / 5 - 8;
-  const [items, setItems] = useState([]);
+  const dispatch = useDispatch();
+  const items = useSelector((state) => state.item.items);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/shop/items").then((res) => {
-      setItems(res.data);
-    });
+    dispatch(loadItems());
   }, []);
 
   const renderItem = ({ item }) => {
