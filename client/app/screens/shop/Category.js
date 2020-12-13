@@ -1,7 +1,10 @@
 import React from "react";
 import { View, Text, TouchableHighlight } from "react-native";
+import { useDispatch } from "react-redux";
+import { changeCategory } from "../../state/actions/category";
 
-const Category = ({ title, onCategorySelect }) => {
+const Category = ({ title, onCategorySelect, id }) => {
+  const dispatch = useDispatch();
   return (
     <View
       style={{
@@ -13,7 +16,14 @@ const Category = ({ title, onCategorySelect }) => {
         flexDirection: "row",
       }}
     >
-      <TouchableHighlight onPress={onCategorySelect}>
+      <TouchableHighlight
+        onPress={
+          (onCategorySelect,
+          () => {
+            dispatch(changeCategory(id));
+          })
+        }
+      >
         <Text>{title}</Text>
       </TouchableHighlight>
     </View>

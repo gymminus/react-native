@@ -1,12 +1,13 @@
-import Axios from "axios";
 import * as actions from "../actionTypes";
 import axios from "axios";
 
-export const loadItems = () => {
+export const loadItems = (query, category) => {
   return (dispatch) => {
     dispatch(loadItemsRequest());
     axios
-      .get("http://localhost:5000/api/shop/items")
+      .get(
+        `http://localhost:5000/api/shop/items?query=${query}&category=${category}`
+      )
       .then((res) => {
         dispatch(loadItemsSuccess(res.data));
       })
