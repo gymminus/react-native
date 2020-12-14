@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import { useIsFocused } from "@react-navigation/native";
 
 import {
   TextInput,
@@ -23,15 +24,23 @@ function SpaRating(props) {
     const [selectedValue1, setSelectedValue1] = useState("Ivertinti");
    
     const [reservations, setReservation] = useState([]);
+   
+
+    const isFocused = useIsFocused();
     useEffect(() => {
-      fetch('http://localhost:5000/api/spa/get-spa-reservation')
+      if (isFocused) {
+        fetch('http://localhost:5000/api/spa/get-spa-reservation')
         .then(res => res.json())
         .then(
           (result) => {
             setReservation(result);
           }
         )
-    }, [])
+      
+      }
+    }, [isFocused]);
+
+  
   
     const styles2 = StyleSheet.create({
       container: {
@@ -141,6 +150,10 @@ function SpaRating(props) {
                         <Picker.Item label="4" value="4" />
                         <Picker.Item label="5" value="5" />
                         <Picker.Item label="6" value="6" />
+                        <Picker.Item label="7" value="7" />
+                        <Picker.Item label="8" value="8" />
+                        <Picker.Item label="9" value="9" />
+                        <Picker.Item label="10" value="10" />
                     </Picker>
                     </View>
                   </View>
