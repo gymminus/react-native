@@ -8,7 +8,7 @@ module.exports = (app, connection) => {
     var con = connection();
     con.query("SELECT * FROM rezervacija", (err, result) => {
       if (err) throw err;
-      console.log("Result: " + result);
+      //console.log("Result: " + result);
       res.json(result);
     });
   });
