@@ -41,4 +41,36 @@ module.exports = (app, connection) => {
       }
     );
   });
+
+  route.get("/activities", (req, res) => {
+    connection.query(
+      `SELECT 
+       u.*,
+       s.adresas,
+       s.vietu_skaicius,
+       n.vardas,
+       n.pavarde
+       FROM sporto_uzsiemimai AS u
+       LEFT JOIN sporto_sales s
+       ON u.fk_sporto_sale = s.id_sporto_sale
+       LEFT JOIN naudotojai n
+       ON u.fk_treneriai=n.id_Naudotojas`,
+      (err, results) => {
+        if (err) throw err;
+        res.json(results);
+      }
+    );
+  });
+
+  route.get("/coaches", (req, res) => {
+    connection.query(
+      `SELECT * FROM naudotojai n
+       RIGHT JOIN treneriai t
+       ON n.id_Naudotojas=t.id_Naudotojas`,
+      (err, results) => {
+        if (err) throw err;
+        res.json(results);
+      }
+    );
+  });
 };

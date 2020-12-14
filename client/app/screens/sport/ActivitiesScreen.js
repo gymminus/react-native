@@ -1,18 +1,35 @@
-import React from "react";
+import { useIsFocused } from "@react-navigation/native";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Button, Text, View } from "react-native";
 
 import Activity from "./Activity";
 
 function ActivitiesScreen({ navigation }) {
-  const activities = [
-    { datetime: "2020-11-10 17:30", location: "Baršausko g. 39" },
-    { datetime: "2020-11-11 17:30", location: "Baršausko g. 39" },
-  ];
+  const [activities, setActivities] = useState([]);
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    if (isFocused) {
+      fetchClubs();
+    }
+  }, [isFocused]);
+
+  const fetchClubs = () => {
+    axios
+      .get("http://localhost:5000/api/sport/activities")
+      .then((res) => {
+        console.log(res.data);
+        setActivities(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <View>
       <Button
-        title="Pridėti užsiemimą (treneris)"
+        title="Pridėti užsiemimą"
         onPress={() => navigation.navigate("NewActivity")}
       ></Button>
       {activities.map((act, index) => (
