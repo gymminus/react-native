@@ -1,8 +1,9 @@
 import React from "react";
-import { Text } from "react-native";
+import { Platform, View, StyleSheet } from "react-native";
+import Map from "./Map";
 
 function MapScreen(props) {
-  return <Text>Žemėlapis</Text>;
+  return <View>{Platform.OS !== "web" ? <Map /> : null}</View>;
 }
 
 export default MapScreen;
