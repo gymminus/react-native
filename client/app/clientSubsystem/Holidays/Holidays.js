@@ -21,10 +21,7 @@ function Holidays({ navigation }) {
         dateto,
         user,
       })
-      .then((res) => {
-        console.log(res);
-        console.log(res.data);
-      });
+      .then((res) => {});
     navigation.navigate("Holidays");
   };
   return (
@@ -35,7 +32,7 @@ function Holidays({ navigation }) {
       <input type='date' onChange={handleTo}></input>
       <Button
         style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
-        title='Pasiimti atostogas'
+        title='Atostogauti!'
         onPress={() => handleSet()}
       />
     </SafeAreaView>
