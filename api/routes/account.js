@@ -1,6 +1,14 @@
 const { Router, Request, Response } = require("express");
 const route = Router();
 const moment = require("moment");
+const nodemailer = require("nodemailer");
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "gymminus123@gmail.com",
+    pass: "GymMinus000",
+  },
+});
 
 module.exports = (app, connection) => {
   app.use("/account", route);
@@ -91,6 +99,19 @@ module.exports = (app, connection) => {
       (err, result) => {
         if (err) throw err;
 
+        const mailOptions = {
+          from: "gymminus123@gmail.com",
+          to: "edgarasnavicaks@gmail.com",
+          subject: "Jūsų užsakymas Gym- elektroninėje parduotuvėje",
+          html: `<h1 style="text-align:center;">Gym- vertina jūsų nuomonę!</h1><p style="text-align:center;">Jūsų skundas ${req.body.complaint}</p>`,
+        };
+        transporter.sendMail(mailOptions, (err, info) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log("Email sent: " + info.response);
+          }
+        });
         res.json(result);
       }
     );
