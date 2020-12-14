@@ -1,19 +1,19 @@
 {
-	"React native stateless function": {
-		"prefix": ["rnsf"],
-		"body": [
-			"import React from 'react';",
-			"import { Text } from 'react-native';",
-			"",
-			"const ${TM_FILENAME_BASE} = (props) => {",
-			"",
-    		"\treturn (",
-        	"\t\t<Text>Lorem ipsum</Text>",
-			"\t);",
-			"}",
-			"",
-			"export default ${TM_FILENAME_BASE};"
-		],
-		"description": "React native stateless function"
-	}
+  "React native stateless function": {
+    "prefix": ["rnsf"],
+    "body": [
+      "import React from 'react';",
+      "import { Text } from 'react-native';",
+      "",
+      "const ${TM_FILENAME_BASE} = (props) => {",
+      "",
+      "\treturn (",
+      "\t\t<Text>Lorem ipsum</Text>",
+      "\t);",
+      "}",
+      "",
+      "export default ${TM_FILENAME_BASE};"
+    ],
+    "description": "React native stateless function"
+  }
 }

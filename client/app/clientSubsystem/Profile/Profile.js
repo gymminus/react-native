@@ -4,36 +4,35 @@ import { Text, Button, View } from "react-native";
 function Profile({ navigation }) {
   return (
     <View>
-      <Text>edgarasnavickas@gmail.com</Text>
       <Button
         style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
-        title="Redaguoti profili"
+        title='Redaguoti profili'
         onPress={() => navigation.navigate("EditProfile")}
       />
 
       <Button
         style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
-        title="Rašyti nusiskundimą"
+        title='Rašyti nusiskundimą'
         onPress={() => navigation.navigate("Writecomplaint")}
       />
       <Button
         style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
-        title="Mano traumos"
+        title='Mano traumos'
         onPress={() => navigation.navigate("InjuriesList")}
       />
       <Button
         style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
-        title="Pasiimti atostogas"
+        title='Atostogos'
         onPress={() => navigation.navigate("Holidays")}
       />
       <Button
         style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
-        title="Ištrinti profilį"
+        title='Ištrinti profilį'
         onPress={() => navigation.navigate("DeleteProfile")}
       />
       <Button
         style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
-        title="Atsijungti"
+        title='Atsijungti'
         onPress={() => navigation.navigate("Account")}
       />
     </View>
