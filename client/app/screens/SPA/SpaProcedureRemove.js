@@ -13,22 +13,22 @@ import {
   Picker,
 } from "react-native";
 
-function SpaRating(props) {
+function SpaProcedureRemove(props) {
 
   // TO:DO /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  const User = {role: "user", id: 3};
+  const User = {role: "user", id: 4};
   // TO:DO /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   
-    const [selectedValue, setSelectedValue] = useState("Pasirinkti procedūrą");
-    const [selectedValue1, setSelectedValue1] = useState("Ivertinti");
+    const [selectedValue, setSelectedValue] = useState("Pasirinkti tipą");
+    const [selectedValue1, setSelectedValue1] = useState("Pasirinkti procedūra");
    
-    const [reservations, setReservation] = useState([]);
+    const [procedures, setProcedures] = useState([]);
     useEffect(() => {
-      fetch('http://localhost:5000/api/spa/get-spa-reservation')
+      fetch('http://localhost:5000/api/spa/get-spa-procedures')
         .then(res => res.json())
         .then(
           (result) => {
-            setReservation(result);
+            setProcedures(result);
           }
         )
     }, [])
@@ -59,22 +59,15 @@ function SpaRating(props) {
           }
           }
 
-          function SendToApi(id, ratings, reservations) {
+          function SendToApi(name) {
 
 
 
 
-            let data
-            reservations.map((reservation) => {
+           
 
-              if (reservation.id_Spa_Rezervacija == id){
-                const d = { id: id, P_id: reservation.fk_Spa_Procedura, rating: ratings};
-                data = d;
-              }
-              })
-
-         
-            fetch('http://localhost:5000/api/spa/post-spa-rating', {
+         const data = {pav: name};
+            fetch('http://localhost:5000/api/spa/remove-procedure', {
               method: 'POST', // or 'PUT'
               headers: {
                 'Content-Type': 'application/json',
@@ -101,23 +94,15 @@ function SpaRating(props) {
                       style={{ height: 50, width: 350 }}
                       onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
                       >
-                      <Picker.Item label="Pasirinkti procedūrą" value="Pasirinkti procedūrą" />
+                      <Picker.Item label="Pasirinkti tipą" value="Pasirinkti tipą" />
 
 
-                      {reservations.map((reservation) => {
-// TO:DO /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// id reiks pakeisti veliau palei user 
-                        if (reservation.fk_Vartotojas == User.id ){
-// TO:DO /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                            return (
-                                <Picker.Item label={reservation.pavadinimas + " " + reservation.savaites_diena.substring(0,10) + " " + reservation.pradzia} value={reservation.id_Spa_Rezervacija} key={reservation.id_Spa_Rezervacija} />
+                      {procedures.map((procedure) => {
+                          return (
+                                <Picker.Item label={procedure.tipas} value={procedure.tipas} key={procedure.id_Spa_Procedura} />
                                 );
+                        })
                         }
-                
-                        
-                    })
-                    }
-
 
                       </Picker>
                   </View>
@@ -134,21 +119,21 @@ function SpaRating(props) {
                         setSelectedValue1(itemValue)
                         }
                     >
-                        <Picker.Item label="Ivertinti" value="Ivertinti" />
-                        <Picker.Item label="1" value="1" />
-                        <Picker.Item label="2" value="2" />
-                        <Picker.Item label="3" value="3" />
-                        <Picker.Item label="4" value="4" />
-                        <Picker.Item label="5" value="5" />
-                        <Picker.Item label="6" value="6" />
+                        <Picker.Item label="Pasirinkti procedūra" value="Pasirinkti procedūra" />
+                        {procedures.map((procedure) => {
+                          return (
+                                <Picker.Item label={procedure.pavadinimas} value={procedure.pavadinimas} key={procedure.id_Spa_Procedura} />
+                                );
+                        })
+                        }
                     </Picker>
                     </View>
                   </View>
 
                   <View style={styles.rowView2}>
                   <Button
-                  onPress={()=>SendToApi(selectedValue, selectedValue1, reservations)}
-                  title="Ivertinti"
+                  onPress={()=>SendToApi(selectedValue1)}
+                  title="Šalinti"
                   color="#000"
                   accessibilityLabel="Learn more about this purple button"
                   />
@@ -161,4 +146,4 @@ function SpaRating(props) {
   
   
 
-export default SpaRating;
+export default SpaProcedureRemove;
