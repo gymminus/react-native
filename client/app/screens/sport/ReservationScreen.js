@@ -19,7 +19,6 @@ function ReservationScreen(props) {
         params: { id: 3 },
       })
       .then((res) => {
-        console.log(res.data);
         setReservations(res.data);
       })
       .catch((err) => {
@@ -27,11 +26,30 @@ function ReservationScreen(props) {
       });
   };
 
+  const deleteReservation = (id, disableDelete) => {
+    disableDelete(true);
+    axios
+      .delete("http://localhost:5000/api/sport/reservations", {
+        data: { id },
+      })
+      .then(() => {
+        fetchReservations();
+      })
+      .catch((err) => {
+        console.log(err);
+        disableDelete(false);
+      });
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <ScrollView>
         {reservations.map((res) => (
-          <Reservation res={res} key={res.id_Rezervacija} />
+          <Reservation
+            res={res}
+            onPressDelete={deleteReservation}
+            key={res.id_Rezervacija}
+          />
         ))}
       </ScrollView>
     </View>
