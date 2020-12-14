@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Image, Text } from "react-native";
 
-const CartItem = ({ title, description }) => {
+const CartItem = ({ item }) => {
   return (
     <View
       style={{
@@ -14,7 +14,7 @@ const CartItem = ({ title, description }) => {
       }}
     >
       <Image
-        source={{ uri: "https://picsum.photos/120/90" }}
+        source={{ uri: item.nuotrauka }}
         style={{ width: 120, height: 90, flex: 3 }}
       ></Image>
       <View style={{ flex: 5, padding: 3 }}>
@@ -22,13 +22,16 @@ const CartItem = ({ title, description }) => {
           style={{
             fontWeight: "bold",
             fontSize: 24,
-            textAlign: "center",
+            textAlign: "left",
             textAlignVertical: "center",
           }}
         >
-          {title}
+          {item.pavadinimas}
         </Text>
-        <Text style={{ flexShrink: 1 }}>{description}</Text>
+        <Text style={{ flexShrink: 1, fontWeight: "bold" }}>
+          {`Kiekis: ${item.count} Kaina: ${item.kaina} €`}
+        </Text>
+        <Text style={{ flexShrink: 1 }}>{item.aprasymas}</Text>
       </View>
     </View>
   );

@@ -5,30 +5,31 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Provider } from "react-redux";
+import store from "./app/state/store";
 
 import SportScreen from "./app/screens/sport/SportScreen";
 import SpaScreen from "./app/screens/SpaScreen";
 import PlanScreen from "./app/screens/PlanScreen";
 import AccountScreen from "./app/screens/AccountScreen";
 import ShopStack from "./app/screens/shop/ShopStack";
-import LoginForm from "./app/accountSubsystem/Login/LoginForm";
-import Profile from "./app/accountSubsystem/Profile/Profile";
-import Writecomplaint from "./app/accountSubsystem/Complaints/Writecomplaint";
-import EditProfile from "./app/accountSubsystem/Profile/EditProfile";
-import InjuriesList from "./app/accountSubsystem/Injuries/InjuriesList";
-import InjuriesRegistration from "./app/accountSubsystem/Injuries/InjuriesRegistration";
-import RegistrationForm from "./app/accountSubsystem/RegistrationForm";
-import Holidays from "./app/accountSubsystem/Holidays";
-import DeleteProfile from "./app/accountSubsystem/Profile/DeleteProfile";
+import LoginForm from "./app/clientSubsystem/Login/LoginForm";
+import Profile from "./app/clientSubsystem/Profile/Profile";
+import Writecomplaint from "./app/clientSubsystem/Complaints/Writecomplaint";
+import EditProfile from "./app/clientSubsystem/Profile/EditProfile";
+import InjuriesList from "./app/clientSubsystem/Injuries/InjuriesList";
+import InjuriesRegistration from "./app/clientSubsystem/Injuries/InjuriesRegistration";
+import RegistrationForm from "./app/clientSubsystem/RegistrationForm";
+import Holidays from "./app/clientSubsystem/Holidays/Holidays";
+import DeleteProfile from "./app/clientSubsystem/Profile/DeleteProfile";
 import SingleWorkoutScreen from "./app/screens/workout-screens/SingleWorkoutScreen"
 import SingleWorkoutDeleteScreen from "./app/screens/workout-screens/SingleWorkoutDeleteScreen"
 import SingleWorkoutEditScreen from "./app/screens/workout-screens/SingleWorkoutEditScreen"
 import SingleWorkoutCreateScreen from "./app/screens/workout-screens/SingleWorkoutCreateScreen"
-
 import SpaRating from "./app/screens/SPA/SpaRating";
 import SpaReservation from "./app/screens/SPA/SpaReservation";
 import SpaReservationCancellation from "./app/screens/SPA/SpaReservationCancellation";
-
+import MyHolidays from "./app/clientSubsystem/Holidays/MyHolidays";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -36,65 +37,71 @@ const App = () => {
   const { width } = useDimensions().window;
   const iconSize = width / 5 - 8;
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        initialRouteName="Home"
-        tabBarOptions={{
-          activeTintColor: "#000",
-        }}
-      >
-        <Tab.Screen
-          name="SportsStack"
-          component={SportsStack}
-          options={{
-            tabBarLabel: "Sports",
-            tabBarIcon: () => (
-              <Icon name="dumbbell" size={iconSize * 0.3} color="#000" />
-            ),
+    <Provider store={store}>
+      <NavigationContainer>
+        <Tab.Navigator
+          initialRouteName="Home"
+          tabBarOptions={{
+            activeTintColor: "#000",
           }}
-        />
-        <Tab.Screen
-          name="SpaStack"
-          component={SpaStack}
-          options={{
-            tabBarLabel: "Spa",
-            tabBarIcon: () => (
-              <Icon name="spa" size={iconSize * 0.3} color="#000" />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="ShopStack"
-          component={() => <ShopStack Stack={Stack} />}
-          options={{
-            tabBarLabel: "Shop",
-            tabBarIcon: () => (
-              <Icon name="shopping-cart" size={iconSize * 0.3} color="#000" />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="PlanStack"
-          component={PlanStack}
-          options={{
-            tabBarLabel: "Plan",
-            tabBarIcon: () => (
-              <Icon name="clipboard-list" size={iconSize * 0.3} color="#000" />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="AcountStack"
-          component={AccountStack}
-          options={{
-            tabBarLabel: "Account",
-            tabBarIcon: () => (
-              <Icon name="bars" size={iconSize * 0.3} color="#000" />
-            ),
-          }}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
+        >
+          <Tab.Screen
+            name="SportsStack"
+            component={SportsStack}
+            options={{
+              tabBarLabel: "Sports",
+              tabBarIcon: () => (
+                <Icon name="dumbbell" size={iconSize * 0.3} color="#000" />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="SpaStack"
+            component={SpaStack}
+            options={{
+              tabBarLabel: "Spa",
+              tabBarIcon: () => (
+                <Icon name="spa" size={iconSize * 0.3} color="#000" />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="ShopStack"
+            component={() => <ShopStack Stack={Stack} />}
+            options={{
+              tabBarLabel: "Shop",
+              tabBarIcon: () => (
+                <Icon name="shopping-cart" size={iconSize * 0.3} color="#000" />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="PlanStack"
+            component={PlanStack}
+            options={{
+              tabBarLabel: "Plan",
+              tabBarIcon: () => (
+                <Icon
+                  name="clipboard-list"
+                  size={iconSize * 0.3}
+                  color="#000"
+                />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="AcountStack"
+            component={AccountStack}
+            options={{
+              tabBarLabel: "Account",
+              tabBarIcon: () => (
+                <Icon name="bars" size={iconSize * 0.3} color="#000" />
+              ),
+            }}
+          />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 };
 
@@ -167,15 +174,9 @@ function SpaStack() {
         component={SpaScreen}
         options={{ title: "SPA" }}
       />
+      <Stack.Screen name="SpaRating" component={SpaRating} />
+      <Stack.Screen name="SpaReservation" component={SpaReservation} />
       <Stack.Screen
-        name="SpaRating"
-        component={SpaRating}
-      />
-      <Stack.Screen
-        name="SpaReservation"
-        component={SpaReservation}
-      />
-       <Stack.Screen
         name="SpaReservationCancellation"
         component={SpaReservationCancellation}
       />
@@ -197,11 +198,22 @@ function PlanStack() {
         component={PlanScreen}
         options={{ title: "Sporto programos" }}
       />
-      <Stack.Screen name="SingleWorkoutScreen" component={SingleWorkoutScreen}></Stack.Screen>
-      <Stack.Screen name="SingleWorkoutDeleteScreen" component={SingleWorkoutDeleteScreen}></Stack.Screen>
-      <Stack.Screen name="SingleWorkoutEditScreen" component={SingleWorkoutEditScreen}></Stack.Screen>
-      <Stack.Screen name="SingleWorkoutCreateScreen" component={SingleWorkoutCreateScreen}></Stack.Screen>
-
+      <Stack.Screen
+        name="SingleWorkoutScreen"
+        component={SingleWorkoutScreen}
+      ></Stack.Screen>
+      <Stack.Screen
+        name="SingleWorkoutDeleteScreen"
+        component={SingleWorkoutDeleteScreen}
+      ></Stack.Screen>
+      <Stack.Screen
+        name="SingleWorkoutEditScreen"
+        component={SingleWorkoutEditScreen}
+      ></Stack.Screen>
+      <Stack.Screen
+        name="SingleWorkoutCreateScreen"
+        component={SingleWorkoutCreateScreen}
+      ></Stack.Screen>
     </Stack.Navigator>
   );
 }
@@ -257,6 +269,11 @@ function AccountStack() {
       />
       <Stack.Screen
         name="Holidays"
+        component={MyHolidays}
+        options={{ title: "Atostogas" }}
+      />
+      <Stack.Screen
+        name="HolidaysForm"
         component={Holidays}
         options={{ title: "Pasiimti atostogas" }}
       />
