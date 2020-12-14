@@ -1,7 +1,7 @@
 import { useIsFocused } from "@react-navigation/native";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Button, ScrollView, Text, View } from "react-native";
+import { Button, ScrollView, View } from "react-native";
 
 import Activity from "./Activity";
 
