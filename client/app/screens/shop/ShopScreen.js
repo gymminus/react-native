@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   TextInput,
   FlatList,
@@ -9,24 +9,37 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { useDimensions } from "@react-native-community/hooks";
-import items from "./Items";
 import Item from "./Item";
 import CategoryModal from "./CategoryModal";
+import { useDispatch, useSelector } from "react-redux";
+import { loadItems } from "../../state/actions/item";
+import { loadCategories } from "../../state/actions/category";
 
 const ShopScreen = ({ navigation }) => {
   const [value, onChangeText] = useState("Įveskite paieškos frazę");
   const [category, selectCategory] = useState("Pasirinkite kategoriją");
   const [categoryModalVisible, setCategoryModalVisible] = useState(false);
+  const [query, setQuery] = useState("");
   const { width } = useDimensions().window;
   const iconSize = width / 5 - 8;
+  const dispatch = useDispatch();
+  const items = useSelector((state) => state.item.items);
+  const categories = useSelector((state) => state.category.categories);
+  const categoryId = useSelector((state) => state.category.currentCategory);
+
+  useEffect(() => {
+    dispatch(loadItems(query, categoryId));
+    dispatch(loadCategories());
+  }, [query, categoryId]);
 
   const renderItem = ({ item }) => {
-    return <Item title={item.title} description={item.description} />;
+    return <Item item={item} />;
   };
 
-  return (
+  return items ? (
     <ScrollView>
       <CategoryModal
+        categories={categories}
         categoryModalVisible={categoryModalVisible}
         onCategorySelect={() => {
           setCategoryModalVisible(!categoryModalVisible);
@@ -40,7 +53,9 @@ const ShopScreen = ({ navigation }) => {
           marginVertical: 8,
           marginHorizontal: 8,
         }}
-        onChangeText={(text) => onChangeText(text)}
+        onChangeText={(text) => {
+          onChangeText(text), setQuery(text);
+        }}
         onFocus={() => onChangeText("")}
         value={value}
       ></TextInput>
@@ -82,10 +97,10 @@ const ShopScreen = ({ navigation }) => {
       <FlatList
         data={items}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id_E_Preke}
       ></FlatList>
     </ScrollView>
-  );
+  ) : null;
 };
 
 export default ShopScreen;
