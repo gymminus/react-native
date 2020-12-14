@@ -28,6 +28,9 @@ import SingleWorkoutCreateScreen from "./app/screens/workout-screens/SingleWorko
 import SpaRating from "./app/screens/SPA/SpaRating";
 import SpaReservation from "./app/screens/SPA/SpaReservation";
 import SpaReservationCancellation from "./app/screens/SPA/SpaReservationCancellation";
+import SpaProcedureAdd from "./app/screens/SPA/SpaProcedureAdd";
+import SpaProcedureEdit from "./app/screens/SPA/SpaProcedureEdit";
+import SpaProcedureRemove from "./app/screens/SPA/SpaProcedureRemove";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -178,6 +181,18 @@ function SpaStack() {
        <Stack.Screen
         name="SpaReservationCancellation"
         component={SpaReservationCancellation}
+      />
+      <Stack.Screen
+        name="SpaProcedureAdd"
+        component={SpaProcedureAdd}
+      />
+      <Stack.Screen
+        name="SpaProcedureEdit"
+        component={SpaProcedureEdit}
+      />
+      <Stack.Screen
+        name="SpaProcedureRemove"
+        component={SpaProcedureRemove}
       />
     </Stack.Navigator>
   );
