@@ -1,5 +1,7 @@
 
 import React, {useEffect, useState} from "react";
+import { useIsFocused } from "@react-navigation/native";
+
 import {
   FlatList,
   Text,
@@ -12,18 +14,24 @@ import {
 function SpaScreen({navigation}) {
 
   // TO:DO /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  const User = {role: "admin", id: 3};
+  const User = {role: "user", id: 3};
   // TO:DO /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ 
   const [reservations, setReservation] = useState([]);
+  const isFocused = useIsFocused();
   useEffect(() => {
-    fetch('http://localhost:5000/api/spa/get-spa-reservation')
+    if (isFocused) {
+      fetch('http://localhost:5000/api/spa/get-spa-reservation')
       .then(res => res.json())
       .then(
         (result) => {
           setReservation(result);
         }
       )
-  }, [])
+    }
+  }, [isFocused]);
+
+ 
 
 
 

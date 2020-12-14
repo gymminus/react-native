@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import { useIsFocused } from "@react-navigation/native";
 
 import {
   TextInput,
@@ -25,17 +26,24 @@ function SpaReservation(props, { navigation }) {
   const [selectedValue2, setSelectedValue2] = useState("Pasirinkti laiką");
 
   const [procedures, setProcedures] = useState([]);
-  useEffect(() => {
-    fetch('http://localhost:5000/api/spa/get-spa-procedures')
-      .then(res => res.json())
-      .then(
-        (result) => {
-          setProcedures(result);
-        }
-      )
-  }, [])
 
-  console.log(procedures);
+
+  const isFocused = useIsFocused();
+    useEffect(() => {
+      if (isFocused) {
+        fetch('http://localhost:5000/api/spa/get-spa-procedures')
+        .then(res => res.json())
+        .then(
+          (result) => {
+            setProcedures(result);
+          }
+        )
+      
+      }
+    }, [isFocused]);
+
+
+
 
 
   const styles2 = StyleSheet.create({
@@ -115,13 +123,8 @@ function SpaReservation(props, { navigation }) {
               label="Pasirinkti tipą"
               value="Pasirinkti tipą"
             />
-            {procedures.map((procedure) => {
-                
-                return (
-                <Picker.Item label={procedure.tipas} value={procedure.id_Spa_Procedura} key={procedure.id_Spa_Procedura} />
-                );
-            })
-            }
+           <Picker.Item label="Masažai" value="Masažai" />
+           <Picker.Item label="Atpalaiduojamas" value="Atpalaiduojamas" />
           </Picker>
 
 
@@ -143,9 +146,12 @@ function SpaReservation(props, { navigation }) {
               value="Pasirinkti procedūrą"
             />
             {procedures.map((procedure) => {
+              console.log(selectedValue0);
+              if(selectedValue0 == procedure.tipas){
                 return (
                 <Picker.Item label={procedure.pavadinimas} value={procedure.id_Spa_Procedura} key={procedure.id_Spa_Procedura} />
                 );
+              }
             })
             }
           </Picker>
@@ -165,16 +171,16 @@ function SpaReservation(props, { navigation }) {
             }
           >
             <Picker.Item label="Pasirinkti data" value="Pasirinkti data" />
-            <Picker.Item label="2020-10-10" value="2020-10-10" />
-            <Picker.Item label="2020-10-11" value="2020-10-11" />
-            <Picker.Item label="2020-10-12" value="2020-10-12" />
-            <Picker.Item label="2020-10-13" value="2020-10-13" />
-            <Picker.Item label="2020-10-14" value="2020-10-14" />
             <Picker.Item label="2020-10-15" value="2020-10-15" />
             <Picker.Item label="2020-10-16" value="2020-10-16" />
             <Picker.Item label="2020-10-17" value="2020-10-17" />
             <Picker.Item label="2020-10-18" value="2020-10-18" />
-            <Picker.Item label="2020-15-19" value="2020-15-19" />
+            <Picker.Item label="2020-10-19" value="2020-10-19" />
+            <Picker.Item label="2020-10-20" value="2020-10-20" />
+            <Picker.Item label="2020-10-21" value="2020-10-21" />
+            <Picker.Item label="2020-10-22" value="2020-10-22" />
+            <Picker.Item label="2020-10-23" value="2020-10-23" />
+            <Picker.Item label="2020-15-24" value="2020-15-24" />
           </Picker>
         </View>
       </View>

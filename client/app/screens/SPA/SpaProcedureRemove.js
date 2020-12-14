@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import { useIsFocused } from "@react-navigation/native";
 
 import {
   TextInput,
@@ -15,23 +16,31 @@ import {
 
 function SpaProcedureRemove(props) {
 
-  // TO:DO /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //TO:DO /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   const User = {role: "user", id: 4};
-  // TO:DO /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //TO:DO /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   
     const [selectedValue, setSelectedValue] = useState("Pasirinkti tipą");
     const [selectedValue1, setSelectedValue1] = useState("Pasirinkti procedūra");
    
     const [procedures, setProcedures] = useState([]);
+  
+
+    const isFocused = useIsFocused();
     useEffect(() => {
-      fetch('http://localhost:5000/api/spa/get-spa-procedures')
+      if (isFocused) {
+        fetch('http://localhost:5000/api/spa/get-spa-procedures')
         .then(res => res.json())
         .then(
           (result) => {
             setProcedures(result);
           }
         )
-    }, [])
+      
+      }
+    }, [isFocused]);
+
+  
   
     const styles2 = StyleSheet.create({
       container: {
@@ -96,13 +105,8 @@ function SpaProcedureRemove(props) {
                       >
                       <Picker.Item label="Pasirinkti tipą" value="Pasirinkti tipą" />
 
-
-                      {procedures.map((procedure) => {
-                          return (
-                                <Picker.Item label={procedure.tipas} value={procedure.tipas} key={procedure.id_Spa_Procedura} />
-                                );
-                        })
-                        }
+                      <Picker.Item label="Masažai" value="Masažai" />
+                      <Picker.Item label="Atpalaiduojamas" value="Atpalaiduojamas" />
 
                       </Picker>
                   </View>
@@ -121,9 +125,11 @@ function SpaProcedureRemove(props) {
                     >
                         <Picker.Item label="Pasirinkti procedūra" value="Pasirinkti procedūra" />
                         {procedures.map((procedure) => {
+                           if (selectedValue == procedure.tipas){
                           return (
                                 <Picker.Item label={procedure.pavadinimas} value={procedure.pavadinimas} key={procedure.id_Spa_Procedura} />
                                 );
+                            }
                         })
                         }
                     </Picker>

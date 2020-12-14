@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-
+import { useIsFocused } from "@react-navigation/native";
 import {
   TextInput,
   FlatList,
@@ -23,15 +23,21 @@ function SpaReservationCancellation(props) {
     const [selectedValue, setSelectedValue] = useState("Pasirinkti procedūrą");
 
     const [reservations, setReservation] = useState([]);
-    useEffect(() => {
+  
+
+
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    if (isFocused) {
       fetch('http://localhost:5000/api/spa/get-spa-reservation')
-        .then(res => res.json())
-        .then(
-          (result) => {
-            setReservation(result);
-          }
-        )
-    }, [])
+      .then(res => res.json())
+      .then(
+        (result) => {
+          setReservation(result);
+        }
+      )
+    }
+  }, [isFocused]);
   
   const styles2 = StyleSheet.create({
     container: {

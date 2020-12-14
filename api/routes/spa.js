@@ -144,5 +144,40 @@ module.exports = (app, connection) => {
 
   });
 
+  // const data = {pavadinimas: name, kitasPavadinimas: changeName};
+  // edit-procedure
+  
+
+  route.post("/edit-procedure", (req, res) => {
+
+      connection.query(
+        "UPDATE spa_proceduros SET ? WHERE ?",
+        [
+          {
+          pavadinimas: req.body.kitasPavadinimas,
+          },
+          {
+          pavadinimas: req.body.pavadinimas,
+          
+        } ],
+        function (error, results, fields) {
+          if (error) throw error;
+          res.json({
+            success: "Updated Successfully",
+            status: 200,
+          });
+
+        }
+      );
+
+    });
+
+    route.get("/get-spa-ratings", (req, res) => {
+      connection.query("SELECT * FROM spa_vertinimai", (err, result) => {
+        if (err) throw err;
+        res.json(result);
+      });
+  
+    });
   
 };

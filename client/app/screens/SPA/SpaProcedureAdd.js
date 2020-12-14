@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import { useIsFocused } from "@react-navigation/native";
 
 import {
   TextInput,
@@ -23,15 +24,23 @@ function SpaProcedureAdd(props) {
     const [proceduretext, setEnteredName] = useState('');
    
     const [reservations, setReservation] = useState([]);
+  
+
+    const isFocused = useIsFocused();
     useEffect(() => {
-      fetch('http://localhost:5000/api/spa/get-spa-reservation')
-        .then(res => res.json())
-        .then(
-          (result) => {
-            setReservation(result);
-          }
-        )
-    }, [])
+      if (isFocused) {
+        fetch('http://localhost:5000/api/spa/get-spa-reservation')
+          .then(res => res.json())
+          .then(
+            (result) => {
+              setReservation(result);
+            }
+          )
+        
+      }
+    }, [isFocused]);
+
+
   
     const styles2 = StyleSheet.create({
       container: {
