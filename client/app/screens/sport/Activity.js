@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Text, View } from "react-native";
 
-function Activity({ act, onPress }) {
-  const [disable, setDisable] = useState(false);
+function Activity({ act, onPressDelete, onPressReserve }) {
+  const [disableDelete, setDisableDelete] = useState(false);
+  const [disableReserve, setDisableReserve] = useState(false);
+  useEffect(() => {
+    if (act.fk_id_Naudotojas && act.fk_id_Naudotojas === 3)
+      setDisableReserve(true);
+  }, [act]);
   return (
     <View style={{ flexDirection: "column", borderBottomWidth: 1 }}>
       <View
@@ -19,11 +24,17 @@ function Activity({ act, onPress }) {
         </Text>
       </View>
       <View style={{ flexDirection: "row", alignSelf: "flex-end" }}>
-        <Button title="Rezervuoti"></Button>
         <Button
-          disabled={disable}
+          disabled={disableReserve}
           onPress={() => {
-            onPress(act.id_Sporto_Uzsiemimas, setDisable);
+            onPressReserve(3, act.id_Sporto_Uzsiemimas, setDisableReserve);
+          }}
+          title="Rezervuoti"
+        ></Button>
+        <Button
+          disabled={disableDelete}
+          onPress={() => {
+            onPressDelete(act.id_Sporto_Uzsiemimas, setDisableDelete);
           }}
           title="X"
           color="red"

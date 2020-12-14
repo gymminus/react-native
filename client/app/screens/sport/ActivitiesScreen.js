@@ -1,7 +1,7 @@
 import { useIsFocused } from "@react-navigation/native";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Button, Text, View } from "react-native";
+import { Button, ScrollView, Text, View } from "react-native";
 
 import Activity from "./Activity";
 
@@ -16,9 +16,8 @@ function ActivitiesScreen({ navigation }) {
 
   const fetchActivities = () => {
     axios
-      .get("http://localhost:5000/api/sport/activities")
+      .get("http://localhost:5000/api/sport/activities", { params: { id: 3 } })
       .then((res) => {
-        console.log(res.data);
         setActivities(res.data);
       })
       .catch((err) => {
@@ -41,15 +40,37 @@ function ActivitiesScreen({ navigation }) {
       });
   };
 
+  const reserveActivity = (id_n, id_su, disableReserve) => {
+    disableReserve(true);
+    axios
+      .post("http://localhost:5000/api/sport/reservations", {
+        data: { id_n, id_su },
+      })
+      .then(() => {
+        fetchActivities();
+      })
+      .catch((err) => {
+        console.log(err);
+        disableReserve(false);
+      });
+  };
+
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <Button
         title="Pridėti užsiemimą"
         onPress={() => navigation.navigate("NewActivity")}
       ></Button>
-      {activities.map((act, index) => (
-        <Activity act={act} onPress={deleteActivity} key={index} />
-      ))}
+      <ScrollView>
+        {activities.map((act) => (
+          <Activity
+            act={act}
+            onPressDelete={deleteActivity}
+            onPressReserve={reserveActivity}
+            key={act.id_Sporto_Uzsiemimas}
+          />
+        ))}
+      </ScrollView>
     </View>
   );
 }
