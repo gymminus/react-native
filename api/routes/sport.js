@@ -23,4 +23,22 @@ module.exports = (app, connection) => {
       }
     );
   });
+
+  route.get("/sportclub", (req, res) => {
+    connection.query(`SELECT * FROM sporto_sales`, (err, results) => {
+      if (err) throw err;
+      res.json(results);
+    });
+  });
+
+  route.delete("/sportclub", (req, res) => {
+    const data = req.body;
+    connection.query(
+      `DELETE FROM sporto_sales WHERE id_sporto_sale=${data.id}`,
+      (err, results) => {
+        if (err) throw err;
+        res.json(results);
+      }
+    );
+  });
 };
