@@ -20,10 +20,10 @@ import InjuriesRegistration from "./app/accountSubsystem/Injuries/InjuriesRegist
 import RegistrationForm from "./app/accountSubsystem/RegistrationForm";
 import Holidays from "./app/accountSubsystem/Holidays";
 import DeleteProfile from "./app/accountSubsystem/Profile/DeleteProfile";
-import SingleWorkoutScreen from "./app/screens/workout-screens/SingleWorkoutScreen"
-import SingleWorkoutDeleteScreen from "./app/screens/workout-screens/SingleWorkoutDeleteScreen"
-import SingleWorkoutEditScreen from "./app/screens/workout-screens/SingleWorkoutEditScreen"
-import SingleWorkoutCreateScreen from "./app/screens/workout-screens/SingleWorkoutCreateScreen"
+import SingleWorkoutScreen from "./app/screens/workout-screens/SingleWorkoutScreen";
+import SingleWorkoutDeleteScreen from "./app/screens/workout-screens/SingleWorkoutDeleteScreen";
+import SingleWorkoutEditScreen from "./app/screens/workout-screens/SingleWorkoutEditScreen";
+import SingleWorkoutCreateScreen from "./app/screens/workout-screens/SingleWorkoutCreateScreen";
 
 import SpaRating from "./app/screens/SPA/SpaRating";
 import SpaReservation from "./app/screens/SPA/SpaReservation";
@@ -65,7 +65,7 @@ const App = () => {
         />
         <Tab.Screen
           name="ShopStack"
-          component={() => <ShopStack Stack={Stack} />}
+          component={ShopStack} // susitvarkyk kaip visi, nuo tavęs kilometriniai warningai consolę kemša :)
           options={{
             tabBarLabel: "Shop",
             tabBarIcon: () => (
@@ -167,15 +167,9 @@ function SpaStack() {
         component={SpaScreen}
         options={{ title: "SPA" }}
       />
+      <Stack.Screen name="SpaRating" component={SpaRating} />
+      <Stack.Screen name="SpaReservation" component={SpaReservation} />
       <Stack.Screen
-        name="SpaRating"
-        component={SpaRating}
-      />
-      <Stack.Screen
-        name="SpaReservation"
-        component={SpaReservation}
-      />
-       <Stack.Screen
         name="SpaReservationCancellation"
         component={SpaReservationCancellation}
       />
@@ -197,11 +191,22 @@ function PlanStack() {
         component={PlanScreen}
         options={{ title: "Sporto programos" }}
       />
-      <Stack.Screen name="SingleWorkoutScreen" component={SingleWorkoutScreen}></Stack.Screen>
-      <Stack.Screen name="SingleWorkoutDeleteScreen" component={SingleWorkoutDeleteScreen}></Stack.Screen>
-      <Stack.Screen name="SingleWorkoutEditScreen" component={SingleWorkoutEditScreen}></Stack.Screen>
-      <Stack.Screen name="SingleWorkoutCreateScreen" component={SingleWorkoutCreateScreen}></Stack.Screen>
-
+      <Stack.Screen
+        name="SingleWorkoutScreen"
+        component={SingleWorkoutScreen}
+      ></Stack.Screen>
+      <Stack.Screen
+        name="SingleWorkoutDeleteScreen"
+        component={SingleWorkoutDeleteScreen}
+      ></Stack.Screen>
+      <Stack.Screen
+        name="SingleWorkoutEditScreen"
+        component={SingleWorkoutEditScreen}
+      ></Stack.Screen>
+      <Stack.Screen
+        name="SingleWorkoutCreateScreen"
+        component={SingleWorkoutCreateScreen}
+      ></Stack.Screen>
     </Stack.Navigator>
   );
 }
