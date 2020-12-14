@@ -26,7 +26,6 @@ function ClubsScreen({ navigation }) {
   };
 
   const deleteClub = (id, disableDelete) => {
-    console.log(id);
     disableDelete(true);
     axios
       .delete("http://localhost:5000/api/sport/sportclub", {

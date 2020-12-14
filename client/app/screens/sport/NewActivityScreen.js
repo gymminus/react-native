@@ -43,7 +43,6 @@ function NewActivityScreen({ navigation }) {
 
   const addActivity = (data) => {
     if (coaches.length === 0 || clubs.length === 0) return;
-    console.log(data);
     setDisableSubmit(true);
     axios
       .post("http://localhost:5000/api/sport/activities", {

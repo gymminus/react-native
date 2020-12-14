@@ -1,7 +1,8 @@
-import React from "react";
-import { Button, Text, TouchableOpacity, View } from "react-native";
+import React, { useState } from "react";
+import { Button, Text, View } from "react-native";
 
-function Activity({ act }) {
+function Activity({ act, onPress }) {
+  const [disable, setDisable] = useState(false);
   return (
     <View style={{ flexDirection: "column", borderBottomWidth: 1 }}>
       <View
@@ -19,7 +20,14 @@ function Activity({ act }) {
       </View>
       <View style={{ flexDirection: "row", alignSelf: "flex-end" }}>
         <Button title="Rezervuoti"></Button>
-        <Button title="X" color="red"></Button>
+        <Button
+          disabled={disable}
+          onPress={() => {
+            onPress(act.id_Sporto_Uzsiemimas, setDisable);
+          }}
+          title="X"
+          color="red"
+        ></Button>
       </View>
     </View>
   );

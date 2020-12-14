@@ -10,11 +10,11 @@ function ActivitiesScreen({ navigation }) {
   const isFocused = useIsFocused();
   useEffect(() => {
     if (isFocused) {
-      fetchClubs();
+      fetchActivities();
     }
   }, [isFocused]);
 
-  const fetchClubs = () => {
+  const fetchActivities = () => {
     axios
       .get("http://localhost:5000/api/sport/activities")
       .then((res) => {
@@ -26,6 +26,21 @@ function ActivitiesScreen({ navigation }) {
       });
   };
 
+  const deleteActivity = (id, disableDelete) => {
+    disableDelete(true);
+    axios
+      .delete("http://localhost:5000/api/sport/activities", {
+        data: { id },
+      })
+      .then(() => {
+        fetchActivities();
+      })
+      .catch((err) => {
+        console.log(err);
+        disableDelete(false);
+      });
+  };
+
   return (
     <View>
       <Button
@@ -33,7 +48,7 @@ function ActivitiesScreen({ navigation }) {
         onPress={() => navigation.navigate("NewActivity")}
       ></Button>
       {activities.map((act, index) => (
-        <Activity act={act} key={index} />
+        <Activity act={act} onPress={deleteActivity} key={index} />
       ))}
     </View>
   );
