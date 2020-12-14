@@ -60,7 +60,7 @@ function SingleWorkoutCreateScreen({ route }) {
     })
       .then((response) => response.json())
       .then((d) => {
-        console.log("Success:", d);
+        console.log("Successs:", d);
         data.id_Sporto_Programa = d.inserted_id;
         route.params.workouts.push(data);
         route.params.setWorkouts(route.params.workouts);

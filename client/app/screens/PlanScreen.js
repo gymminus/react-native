@@ -8,7 +8,7 @@ function PlanScreen({ props, navigation }) {
   const [selectedValueCreator, setSelectedValueCreator] = useState("admin");
 
   // 2 - treneris
-  const user_id = 3;
+  const user_id = 2;
   let loggedAs;
   if (user_id == 2 || user_id == 4) {
     loggedAs = "admin";
@@ -17,42 +17,44 @@ function PlanScreen({ props, navigation }) {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.bodyPartSelectionText}>Select body part</Text>
+    <ScrollView>
+      <View style={styles.container}>
+        <Text style={styles.bodyPartSelectionText}>Select body part</Text>
 
-      <Picker
-        selectedValue={selectedValue}
-        style={{ height: 50, width: 150 }}
-        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-      >
-        <Picker.Item label="Chest" value="chest" />
-        <Picker.Item label="Biceps" value="biceps" />
-        <Picker.Item label="Triceps" value="triceps" />
-        <Picker.Item label="Legs" value="legs" />
-        <Picker.Item label="Shoulders" value="shoulders" />
-      </Picker>
+        <Picker
+          selectedValue={selectedValue}
+          style={{ height: 50, width: 150 }}
+          onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+        >
+          <Picker.Item label="Chest" value="chest" />
+          <Picker.Item label="Biceps" value="biceps" />
+          <Picker.Item label="Triceps" value="triceps" />
+          <Picker.Item label="Legs" value="legs" />
+          <Picker.Item label="Shoulders" value="shoulders" />
+        </Picker>
 
-      <Text style={styles.bodyPartSelectionText}>Select program creator</Text>
+        <Text style={styles.bodyPartSelectionText}>Select program creator</Text>
 
-      <Picker
-        selectedValue={selectedValueCreator}
-        style={{ height: 50, width: 150 }}
-        onValueChange={(itemValueCreator, itemIndex) =>
-          setSelectedValueCreator(itemValueCreator)
-        }
-      >
-        <Picker.Item label="Admin" value="admin" />
-        <Picker.Item label="User" value="user" />
-      </Picker>
+        <Picker
+          selectedValue={selectedValueCreator}
+          style={{ height: 50, width: 150 }}
+          onValueChange={(itemValueCreator, itemIndex) =>
+            setSelectedValueCreator(itemValueCreator)
+          }
+        >
+          <Picker.Item label="Admin" value="admin" />
+          <Picker.Item label="User" value="user" />
+        </Picker>
 
-      <WorkoutListScreen
-        category={selectedValue}
-        categoryCreator={selectedValueCreator}
-        navigation={navigation}
-        loggedAs={loggedAs}
-        userId={user_id}
-      ></WorkoutListScreen>
-    </View>
+        <WorkoutListScreen
+          category={selectedValue}
+          categoryCreator={selectedValueCreator}
+          navigation={navigation}
+          loggedAs={loggedAs}
+          userId={user_id}
+        ></WorkoutListScreen>
+      </View>
+    </ScrollView>
   );
 }
 

@@ -7,9 +7,16 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
+  TouchableHighlight,
 } from "react-native";
 
-function SingleWorkoutItem({ id, loggedAs, creator, workoutObj, navigation }) {
+function SingleWorkoutItem({
+  userId,
+  loggedAs,
+  creator,
+  workoutObj,
+  navigation,
+}) {
   const { width, height } = useDimensions().window;
 
   return (
@@ -18,16 +25,20 @@ function SingleWorkoutItem({ id, loggedAs, creator, workoutObj, navigation }) {
     <TouchableOpacity
       style={{
         width: width,
-        height: height / 5,
+        height: height / 10,
         backgroundColor: "grey",
         paddingTop: 0,
         flex: 1,
+        borderColor: "black",
+        borderWidth: "1px",
         flexDirection: "row",
       }}
+      activeOpacity={1}
       onPress={() =>
         navigation.navigate("SingleWorkoutScreen", {
           workoutObj: workoutObj,
           loggedAs: loggedAs,
+          userId: userId,
           creator: creator,
           navigation: navigation,
         })
@@ -36,7 +47,7 @@ function SingleWorkoutItem({ id, loggedAs, creator, workoutObj, navigation }) {
       <Text style={styles.loremIpsum}>{workoutObj.pavadinimas}</Text>
       <Text style={styles.loremIpsum}>{workoutObj.aprasymas}</Text>
       <Text style={styles.loremIpsum}>{workoutObj.sunkumas}</Text>
-      <Text style={styles.loremIpsum}>{workoutObj.tipas} min</Text>
+      <Text style={styles.loremIpsum}>{workoutObj.tipas}</Text>
       <Text style={styles.loremIpsum}>{workoutObj.trukmeMin} min</Text>
     </TouchableOpacity>
     // {/* </View> */}
@@ -63,6 +74,7 @@ const styles = StyleSheet.create({
   loremIpsum: {
     fontFamily: "roboto-regular",
     color: "black",
+    fontSize: "25px",
     marginTop: 5,
     marginLeft: "auto",
   },

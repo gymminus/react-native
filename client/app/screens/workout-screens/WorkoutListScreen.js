@@ -1,6 +1,7 @@
 import { ScrollView, Text, Button, StyleSheet, View } from "react-native";
 import React, { useState, useEffect } from "react";
 import SingleWorkoutItem from "./SingleWorkoutItem";
+import { useIsFocused } from "@react-navigation/native";
 
 function WorkoutListScreen({
   category,
@@ -11,16 +12,20 @@ function WorkoutListScreen({
 }) {
   // get workouts
   const [workouts, setWorkouts] = useState([]);
+
+  const isFocused = useIsFocused();
   useEffect(() => {
-    fetch("http://localhost:5000/api/workout/programs")
-      .then((res) => res.json())
-      .catch((err) => {
-        console.log(err);
-      })
-      .then((result) => {
-        setWorkouts(result);
-      });
-  }, []);
+    if (isFocused) {
+      fetch("http://localhost:5000/api/workout/programs")
+        .then((res) => res.json())
+        .catch((err) => {
+          console.log(err);
+        })
+        .then((result) => {
+          setWorkouts(result);
+        });
+    }
+  }, [isFocused]);
 
   console.log(workouts);
 
@@ -28,32 +33,33 @@ function WorkoutListScreen({
     <ScrollView>
       <View style={styles.View}>
         <Text style={styles.Text}>Name </Text>
-        <Text style={styles.Text}>Description </Text>
         <Text style={styles.Text}>Difficulty </Text>
         <Text style={styles.Text}>Category </Text>
         <Text style={styles.Text}>Duration </Text>
       </View>
-
-      {workouts
-        .filter(
-          (word) =>
-            word.tipas === category &&
-            (categoryCreator === "admin"
-              ? word.fk_Treneriai != null
-              : word.fk_Vartotojas == userId)
-        )
-        .map((workout) => {
-          return (
-            <SingleWorkoutItem
-              key={workout.id_Sporto_Programa}
-              loggedAs={loggedAs}
-              workoutObj={workout}
-              creator={categoryCreator}
-              navigation={navigation}
-            ></SingleWorkoutItem>
-          );
-        })}
-      {loggedAs != "admin" && categoryCreator === "admin" ? (
+      {workouts &&
+        workouts
+          .filter(
+            (word) =>
+              word.tipas === category &&
+              (categoryCreator === "admin"
+                ? word.fk_Treneriai != null
+                : word.fk_Vartotojas == userId)
+          )
+          .map((workout) => {
+            return (
+              <SingleWorkoutItem
+                key={workout.id_Sporto_Programa}
+                loggedAs={loggedAs}
+                workoutObj={workout}
+                userId={userId}
+                creator={categoryCreator}
+                navigation={navigation}
+              ></SingleWorkoutItem>
+            );
+          })}
+      {(loggedAs != "admin" && categoryCreator === "admin") ||
+      (loggedAs == "admin" && categoryCreator === "user") ? (
         <Text>Not available</Text>
       ) : (
         <Button
