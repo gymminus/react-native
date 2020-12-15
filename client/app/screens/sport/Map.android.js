@@ -53,9 +53,10 @@ function Map(props) {
             longitudeDelta: 0.0421,
           }}
         >
-          {coords.map((coord) => {
+          {coords.map((coord, index) => {
             return (
               <MapView.Marker
+                key={index}
                 coordinate={coord}
                 description={coord.address}
                 title={coord.description}
