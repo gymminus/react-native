@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-
+import React, {useEffect, useState} from "react";
+import { useIsFocused } from "@react-navigation/native";
 import {
   TextInput,
   FlatList,
@@ -15,8 +15,29 @@ import {
 
 function SpaReservationCancellation(props) {
     
+    
+    // TO:DO /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  const User = {role: "user", id: 3};
+  // TO:DO /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  
     const [selectedValue, setSelectedValue] = useState("Pasirinkti procedūrą");
-   
+
+    const [reservations, setReservation] = useState([]);
+  
+
+
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    if (isFocused) {
+      fetch('http://localhost:5000/api/spa/get-spa-reservation')
+      .then(res => res.json())
+      .then(
+        (result) => {
+          setReservation(result);
+        }
+      )
+    }
+  }, [isFocused]);
   
   const styles2 = StyleSheet.create({
     container: {
@@ -59,6 +80,30 @@ function SpaReservationCancellation(props) {
         }
         })
 
+
+
+        function SendToApi(ids) {
+
+            const data = { id: ids};
+            console.log(ids);
+            fetch('http://localhost:5000/api/spa/post-spa-reservation', {
+              method: 'POST', // or 'PUT'
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(data),
+            })
+            .then(response => response.json())
+            .then(data => {
+              console.log('Success:', data);
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
+        
+        
+          }
+
     return (
         <View style={styles.columnView}>
                 <View style={styles.rowView2}>
@@ -69,8 +114,26 @@ function SpaReservationCancellation(props) {
                     onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
                     >
                     <Picker.Item label="Pasirinkti procedūrą" value="Pasirinkti procedūrą" />
-                    <Picker.Item label="Nugaros masažas 2020-10-10 9:00" value="Nugaros masažas" />
-                    <Picker.Item label="Pasiplaukiojimas baseine 2020-10-14 10:00" value="Pasiplaukiojimas baseine" />
+
+
+                    {reservations.map((reservation) => {
+// TO:DO /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// id reiks pakeisti veliau palei user 
+                        if (reservation.fk_Vartotojas == User.id ){
+ // TO:DO /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                            return (
+                                <Picker.Item label={reservation.pavadinimas + " " + reservation.savaites_diena.substring(0,10) + " " + reservation.pradzia} value={reservation.id_Spa_Rezervacija} key={reservation.id_Spa_Rezervacija} />
+                                );
+                        }
+                
+                        
+                    })
+                    }
+
+
+                
+
+
                     </Picker>
                 </View>
                 </View>
@@ -94,7 +157,7 @@ function SpaReservationCancellation(props) {
                 </View>
                 <View style={styles.rowView2}>
                 <Button
-                onPress={()=>console.log("atsaukia")}
+                onPress={()=>SendToApi(selectedValue)}
                 title="Atšaukti rezervacija"
                 color="#000"
                 accessibilityLabel="Learn more about this purple button"

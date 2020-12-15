@@ -14,33 +14,37 @@ import {
   Picker,
 } from "react-native";
 
-function SpaRating(props) {
+function SpaProcedureEdit(props) {
 
   // TO:DO /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  const User = {role: "user", id: 3};
+  const User = {role: "user", id: 4};
   // TO:DO /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   
     const [selectedValue, setSelectedValue] = useState("Pasirinkti procedūrą");
-    const [selectedValue1, setSelectedValue1] = useState("Ivertinti");
-   
-    const [reservations, setReservation] = useState([]);
-   
+    const [text, setText] = useState('');
+    //selectedValue = "Prasome pasirinkti procedura";
+    let first  = selectedValue;
+    
+    const [procedures, setProcedures] = useState([]);
+
+ 
 
     const isFocused = useIsFocused();
     useEffect(() => {
       if (isFocused) {
-        fetch('http://localhost:5000/api/spa/get-spa-reservation')
+        fetch('http://localhost:5000/api/spa/get-spa-procedures')
         .then(res => res.json())
         .then(
           (result) => {
-            setReservation(result);
+            setProcedures(result);
           }
         )
-      
       }
     }, [isFocused]);
 
-  
+   
+
+
   
     const styles2 = StyleSheet.create({
       container: {
@@ -68,22 +72,12 @@ function SpaRating(props) {
           }
           }
 
-          function SendToApi(id, ratings, reservations) {
+          function SendToApi(changeName, name) {
 
-
-
-
-            let data
-            reservations.map((reservation) => {
-
-              if (reservation.id_Spa_Rezervacija == id){
-                const d = { id: id, P_id: reservation.fk_Spa_Procedura, rating: ratings};
-                data = d;
-              }
-              })
+            const data = {pavadinimas: name, kitasPavadinimas: changeName};
 
          
-            fetch('http://localhost:5000/api/spa/post-spa-rating', {
+            fetch('http://localhost:5000/api/spa/edit-procedure', {
               method: 'POST', // or 'PUT'
               headers: {
                 'Content-Type': 'application/json',
@@ -98,7 +92,7 @@ function SpaRating(props) {
               console.error('Error:', error);
             });
         
-        
+
           }
 
       return (
@@ -108,26 +102,22 @@ function SpaRating(props) {
                       <Picker
                       selectedValue={selectedValue}
                       style={{ height: 50, width: 350 }}
-                      onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+                      onValueChange={(itemValue, itemKey) => {setSelectedValue(itemValue),setText(itemValue)}}
+                      // onValueChange={(value) => {
+                      //   setSelectedValue({value});
+                      // }}
                       >
                       <Picker.Item label="Pasirinkti procedūrą" value="Pasirinkti procedūrą" />
 
 
-                      {reservations.map((reservation) => {
-// TO:DO /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// id reiks pakeisti veliau palei user 
-                        if (reservation.fk_Vartotojas == User.id ){
-// TO:DO /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                      {procedures.map((procedure) => {
                             return (
-                                <Picker.Item label={reservation.pavadinimas + " " + reservation.savaites_diena.substring(0,10) + " " + reservation.pradzia} value={reservation.id_Spa_Rezervacija} key={reservation.id_Spa_Rezervacija} />
-                                );
+                            <Picker.Item label={procedure.pavadinimas} value={procedure.pavadinimas} key={procedure.id_Spa_Procedura} />
+                            );
+                        })
                         }
-                
+
                         
-                    })
-                    }
-
-
                       </Picker>
                   </View>
                   </View>
@@ -136,32 +126,24 @@ function SpaRating(props) {
               
                   <View style={styles.rowView2}>
                   <View style2={styles.container}>
-                    <Picker
-                        selectedValue={selectedValue1}
-                        style={{ height: 50, width: 350 }}
-                        onValueChange={(itemValue, itemIndex) =>
-                        setSelectedValue1(itemValue)
-                        }
-                    >
-                        <Picker.Item label="Ivertinti" value="Ivertinti" />
-                        <Picker.Item label="1" value="1" />
-                        <Picker.Item label="2" value="2" />
-                        <Picker.Item label="3" value="3" />
-                        <Picker.Item label="4" value="4" />
-                        <Picker.Item label="5" value="5" />
-                        <Picker.Item label="6" value="6" />
-                        <Picker.Item label="7" value="7" />
-                        <Picker.Item label="8" value="8" />
-                        <Picker.Item label="9" value="9" />
-                        <Picker.Item label="10" value="10" />
-                    </Picker>
+                  <View style3={styles.textAreaContainer} >
+                    <TextInput
+                    style={styles.textArea}
+                    underlineColorAndroid="transparent"
+                    placeholderTextColor="grey"
+                    numberOfLines={10}
+                    multiline={true}
+                    onChangeText={text => setText(text)}
+                    value={text}
+                    />
+                  </View>
                     </View>
                   </View>
 
                   <View style={styles.rowView2}>
                   <Button
-                  onPress={()=>SendToApi(selectedValue, selectedValue1, reservations)}
-                  title="Ivertinti"
+                  onPress={()=>SendToApi(text,selectedValue)}
+                  title="Redaguoti"
                   color="#000"
                   accessibilityLabel="Learn more about this purple button"
                   />
@@ -174,4 +156,4 @@ function SpaRating(props) {
   
   
 
-export default SpaRating;
+export default SpaProcedureEdit;

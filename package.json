@@ -34,6 +34,7 @@
     "nodemailer": "^6.4.17",
     "nodemon": "^2.0.4",
     "react-native-dropdown-picker": "^3.7.1",
+    "react-native-restart": "0.0.17",
     "react-native-search-box": "0.0.20",
     "react-native-table-component": "^1.2.1"
   }
